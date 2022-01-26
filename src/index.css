@@ -8,11 +8,61 @@ body {
   overflow-x: hidden;
 }
 
+.App {
+  background-image: url("../public/images/background.jpg");
+  background-repeat: repeat;
+  background-size: cover;
+  height: 617px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 .searchbar {
+  padding-top: 20px;
+}
+
+.card {
+  background-image: url("../public/images/dia.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 80%;
+  margin: auto;
+  padding: 20px;
+  width: 400px;
+  height: 500px;
+  -webkit-box-shadow: 9px 11px 19px 5px rgba(0, 0, 0, 0.96);
+  box-shadow: 9px 11px 19px 5px rgba(0, 0, 0, 0.96);
+  /* color: rgb(141, 137, 137); */
+}
+
+.card--cidade {
+  font-size: 50px;
   margin-top: 20px;
+}
+
+.card--temperatura {
+  font-size: 40px;
+  margin-top: 80px;
+  margin-bottom: 100px;
+}
+
+.card--temperatura > h3 {
+  font-size: 60px;
+}
+
+.card--temperatura > h5 {
+  font-size: 15px;
+}
+
+.card--colunas {
+  display: flex;
+  flex-direction: row;
+}
+
+.card--coluna--min-max {
+  font-size: 10px;
+  margin-right: auto;
 }
