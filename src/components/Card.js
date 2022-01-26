@@ -9,19 +9,27 @@ import KEY from "../KEY";
 
 export default function Card(props) {
   const [city, setCity] = useState("São Paulo");
-  const [temp, setTemp] = useState(26);
-  const [temp_min, setTempMin] = useState(20);
-  const [temp_max, setTempMax] = useState(31);
+  const [temp, setTemp] = useState(23);
+  const [temp_min, setTempMin] = useState(23);
+  const [temp_max, setTempMax] = useState(26);
   const [description, setDescription] = useState("Céu limpo");
   const [feelsLike, setFeelsLike] = useState(`${temp + 2}`);
-  const [humidity, setHumidity] = useState(94);
-  const [hour, setHour] = useState("12:00");
-  const [background, setBackground] = useState(
-    `url("./images/background.jpg")`
-  );
+  const [humidity, setHumidity] = useState(80);
+  const [hour, setHour] = useState("7:26");
   const [cardBackground, setCardBackground] = useState(
     `url("./images/dia.jpg")`
   );
+  const [timeZone, setTimeZone] = useState(0);
+
+  const background = `url("./images/background.jpg")`;
+
+  function updateTime(timezone) {
+    // var d = new Date().getTime() / 1000;
+    // let date = new Date((d - 3600) * 1000);
+    // console.log(Date.UTC(year, month));
+    var d = new Date(); /* midnight in China on April 13th */
+    console.log(d.toLocaleString("en-US", { timeZone: "Europe/Berlin" }));
+  }
 
   function getTime() {
     let today = new Date();
@@ -31,18 +39,19 @@ export default function Card(props) {
   }
 
   function getBackground(description, hours) {
-    console.log(hours >= 6);
-    console.log(description);
     if (description == "nublado") {
       setCardBackground(`url("./images/nublado.jpg")`);
-    }
-    if (description === "ceu limpo") {
+    } else if (description === "ceu limpo") {
       if (hours >= 6 && hours <= 18) {
         setCardBackground(`url("./images/dia.jpg")`);
       }
       if (hours >= 18 && hours <= 6) {
         setCardBackground(`url("./images/noite.jpg")`);
       }
+    } else if (description === "neve") {
+      setCardBackground(`url("./images/neve.jpg")`);
+    } else {
+      setCardBackground(`url("./images/dia.jpg")`);
     }
   }
   function getWeather() {
@@ -60,8 +69,9 @@ export default function Card(props) {
         setFeelsLike(`${Math.round(res_1.main.feels_like)}`);
         setHumidity(`${Math.round(res_1.main.humidity)}`);
         setHour(getTime()[0]);
-        // getBackground(res_1.weather[0].description, getTime()[1]);
-        getBackground("ceu limpo", 22);
+        getBackground(res_1.weather[0].description, getTime()[1]);
+        // setTimeZone(res_1.timezone);
+        updateTime(res_1.timezone);
       });
   }
 
@@ -98,7 +108,7 @@ export default function Card(props) {
         }}
       >
         <h3 className="card--cidade">{city}</h3>
-        <h4>{hour}</h4>
+        {/* <h4>{hour}</h4> */}
         <div className="card--temperatura">
           <h3>{temp}º </h3>
           <h5>{description}</h5>
